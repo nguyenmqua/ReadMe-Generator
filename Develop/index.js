@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const util = require("util");
+const generateMarkdown = require("./utils/generateMarkdown")
 
 const writeFileAsync = util.promisify(fs.writeFile);
 
@@ -46,6 +47,16 @@ const questions = [
           "ISC", 
           "Apache"
         ]
+      },
+      {
+          type: "input",
+          message: "What is your github username?",
+          name: "github"
+        },
+      {
+        type: "input",
+        message: "What is your email?",
+        name: "email"
       }
 
 ];
@@ -54,42 +65,13 @@ function promptUser() {
   return inquirer.prompt(questions)
 }
 
-//function to generate the readME
-function generateReadME(answers){
-  return `# ${answers.title}
-
-## Description
-${answers.description}
-
-## Table of Content
-
-## Installation
- ${answers.installation}
-
-
-## Usage
- ${answers.usage}
-
-
-## Contribution
-
- ${answers.contribution}
-
-## Test Instructions
- ${answers.test}
-
-
- ${answers.license} © )`
-console.log(answers.license)
-}
-
 // function to initialize program
 async function init() {
 
   try {
     const answers = await promptUser();
 
-    const readME = generateReadME(answers);
+    const readME = generateMarkdown(answers);
 
     writeFileAsync("ReadME.md", readME)
 
@@ -98,8 +80,7 @@ async function init() {
     console.log(err);
   }
 }
-
-
+    
 
 // function call to initialize program
 init();

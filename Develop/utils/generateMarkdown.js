@@ -1,16 +1,16 @@
-const data = require("../index.js")
 
-
-// function to generate markdown for README
 function generateMarkdown(data) {
-  console.log(data)
-  return `# ${data.title}
+  try { return `# ${data.title}
 
   ## Description
   ${data.description}
   
-  ## Table of Content
-  
+  # Table of Content
+  1. [Installation](#installation)
+  2. [Usage](#usage)
+  3. [Contribution](#contribution)
+  4. [Test Instructions](#test-instructions)
+
   ## Installation
    ${data.installation}
   
@@ -25,10 +25,20 @@ function generateMarkdown(data) {
   ## Test Instructions
    ${data.test}
   
+  ## Questions
+  Github:[${data.github}](github.com/${data.github})
+  Email: ${data.email}
   
    ${data.license} © )`
-  console.log(data.license)
-  };
+
+  
+  }
+
+  catch (err){
+    console.log(error)
+  }
+}
+
 
 
 module.exports = generateMarkdown;
